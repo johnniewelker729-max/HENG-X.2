@@ -1,0 +1,11 @@
+{
+  "name": "heng-x2-cloudflare",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node tools/check-structure.cjs",
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev"
+  },
+  "devDependencies": { "wrangler": "4.157.0" }
+}
