@@ -18,6 +18,8 @@
 // Keep the introduction video inline and let mobile browsers autoplay it muted.
 (()=>{
  const css=document.createElement('link');css.rel='stylesheet';css.href='/video-layout.css';document.head.append(css);
+ const reviewSection=document.getElementById('reviews'),promo=document.querySelector('.promo');
+ if(reviewSection&&promo)promo.before(reviewSection);
  const previous=renderSideVideo;
  renderSideVideo=function(){
   const p=profiles[current],id=ytId((p.youtube||'').trim());

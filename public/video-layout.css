@@ -1,14 +1,19 @@
-.promo .video-row{box-sizing:border-box;aspect-ratio:16/9;height:auto;min-height:0;overflow:hidden;border-radius:16px;background:#071310}
+.promo{gap:36px;padding:28px 20px;align-items:center}
+.promo .video-row{box-sizing:border-box;flex:0 0 42%;aspect-ratio:16/9;height:auto;min-height:0;max-width:480px;overflow:hidden;border-radius:16px;background:#071310}
+.promo-copy h2{font-size:30px;line-height:1.4;margin-bottom:12px}.promo-copy p{margin-bottom:10px}
+.dashboard>.callball-reviews{margin-top:20px;padding:22px 20px}.callball-reviews .cb-heading{margin-bottom:14px}
+@media(min-width:768px){.hero{height:clamp(320px,40vh,420px);min-height:0}.promo-copy h2 br{display:none}.promo-copy h2{max-width:520px}.social-grid{padding-top:8px;padding-bottom:16px}}
 .promo .side-youtube{position:absolute;inset:0;width:100%;height:100%}
 .promo .side-youtube iframe{display:block;width:100%;height:100%;border:0}
 .line-floating,body>.line-floating{background:#06c755;opacity:1;border:2px solid #fff;box-shadow:0 4px 18px #0007;backdrop-filter:none;-webkit-backdrop-filter:none}
 .line-floating svg{opacity:1;filter:none;width:35px;height:35px}
 .line-floating:hover{background:#05ad49;box-shadow:0 6px 22px #0008}
 @media(max-width:767px){
- .promo{display:flex;flex-direction:column;align-items:stretch;gap:22px;padding:30px 0 26px}
+ .promo{display:flex;flex-direction:column;align-items:stretch;gap:16px;padding:22px 0}
  .promo-copy{flex:none;min-width:0}.promo-copy h2{font-size:clamp(24px,6.3vw,30px);line-height:1.45;margin:0 0 12px;text-wrap:balance}.promo-copy h2 br{display:none}
  .promo-copy p{max-width:36em;margin:0 0 8px;line-height:1.8}.promo-contact{margin:0;min-height:44px}
- .promo .video-row{flex:none;width:100%;aspect-ratio:16/9;border-radius:14px;margin:0}
+ .promo .video-row{flex:none;width:100%;max-width:none;aspect-ratio:16/9;border-radius:14px;margin:0}
+ .dashboard>.callball-reviews{padding:20px 8px;margin-top:16px}
  body>.chat-fab,body>.line-floating{position:relative;inset:auto;display:inline-flex;vertical-align:middle;align-items:center;justify-content:center;width:48px;height:48px;min-height:48px;padding:0;margin-top:8px;margin-bottom:max(20px,env(safe-area-inset-bottom));transform:none}
  body>.chat-fab{margin-left:max(16px,calc((100vw - 1200px)/2));margin-right:12px;background:#173b30}.chat-fab-label{display:none}
  body>.line-floating{margin-left:0;background:#06c755}
