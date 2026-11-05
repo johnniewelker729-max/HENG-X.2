@@ -6,7 +6,7 @@ Repository ที่ใช้: `johnniewelker729-max/HENG-X.2` — branch `main`
 
 ## Cloudflare
 
-เปิด Worker **hengx2** แล้วไปที่ Settings → Builds เชื่อม Git Repository เป็น **johnniewelker729-max/HENG-X.2**
+เปิด Worker **heng-x-2** แล้วไปที่ Settings → Builds เชื่อม Git Repository เป็น **johnniewelker729-max/HENG-X.2**
 
 | การตั้งค่า | ค่า |
 | --- | --- |
@@ -15,7 +15,7 @@ Repository ที่ใช้: `johnniewelker729-max/HENG-X.2` — branch `main`
 | Build command | `npm ci && npm run build` |
 | Deploy command | `npm run deploy` |
 
-ชื่อ Worker ใน `wrangler.jsonc` คือ `hengx2` URL หลัง deploy: https://hengx2.johnniewelker729.workers.dev
+ชื่อ Worker ใน `wrangler.jsonc` คือ `heng-x-2` เพื่อใช้ URL เดิม: https://heng-x-2.johnniewelker729.workers.dev
 
 ไฟล์เว็บอยู่ใน `public/` เท่านั้น ไม่ต้องเพิ่ม `--assets ./` ในคำสั่ง deploy
 

@@ -14,3 +14,23 @@
  hydrate().then(async()=>{try{const data=await api('/api/chat');if(data.conversation){enableChat(data.conversation);await loadMessages()}else status('ระบุชื่อเพื่อเริ่มสนทนา • ข้อความเก็บเป็นส่วนตัว')}catch{status('เชื่อมต่อแชทไม่ได้ กรุณาลองใหม่',true)}});
  setInterval(()=>{if(!document.hidden&&conversation&&$('contact').classList.contains('is-open'))loadMessages()},3000);
 })();
+
+// Keep the introduction video inline and let mobile browsers autoplay it muted.
+(()=>{
+ const css=document.createElement('link');css.rel='stylesheet';css.href='/video-layout.css';document.head.append(css);
+ const previous=renderSideVideo;
+ renderSideVideo=function(){
+  const p=profiles[current],id=ytId((p.youtube||'').trim());
+  if(!id||location.protocol==='file:')return previous();
+  const dest=document.getElementById('side-youtube');
+  document.getElementById('side-logo-fallback').style.display='none';
+  dest.classList.add('is-active');dest.closest('section').classList.remove('video-empty');
+  const url=new URL('https://www.youtube-nocookie.com/embed/'+id);
+  url.search=new URLSearchParams({autoplay:'1',mute:'1',playsinline:'1',rel:'0',origin:location.origin}).toString();
+  if(dest.querySelector('iframe')?.src===url.href)return;
+  const iframe=document.createElement('iframe');iframe.title='วิดีโอแนะนำ '+p.name;iframe.src=url.href;
+  iframe.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';iframe.allowFullscreen=true;iframe.referrerPolicy='strict-origin-when-cross-origin';
+  dest.replaceChildren(iframe);
+ };
+ renderSideVideo();
+})();

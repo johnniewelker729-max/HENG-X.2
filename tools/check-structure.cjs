@@ -5,6 +5,6 @@ const required=['worker.mjs','reviews.mjs','public/reviews.js','public/reviews.c
 const missing=required.filter(name=>!fs.existsSync(path.join(root,name)));
 if(missing.length){console.error('Missing files/folders. Upload the COMPLETE project, including public/ and migrations/:\n'+missing.join('\n'));process.exit(1)}
 const config=JSON.parse(fs.readFileSync(path.join(root,'wrangler.jsonc'),'utf8'));
-if(config.name!=='hengx2'||config.assets.directory!=='./public'||config.main!=='worker.mjs'||!config.d1_databases.some(b=>b.binding==='DB'&&b.database_name==='naypan-db'))throw Error('Unexpected Cloudflare configuration');
+if(config.name!=='heng-x-2'||config.assets.directory!=='./public'||config.main!=='worker.mjs'||!config.d1_databases.some(b=>b.binding==='DB'&&b.database_name==='naypan-db'))throw Error('Unexpected Cloudflare configuration');
 if(!fs.readFileSync(path.join(root,'public/index.html'),'utf8').includes('HENG X.2'))throw Error('Unexpected website brand');
 console.log('OK: HENG X.2 website, admin, public/, migrations/ and Worker configuration are complete.');
