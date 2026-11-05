@@ -1,7 +1,7 @@
 'use strict';
 const fs=require('node:fs'),path=require('node:path');
 const root=path.resolve(__dirname,'..');
-const required=['worker.mjs','reviews.mjs','public/reviews.js','public/reviews.css','seed.mjs','wrangler.jsonc','package.json','package-lock.json','public/index.html','public/public-app.js','public/admin.html','public/admin-app.js','public/admin.css','migrations/0001_initial.sql'];
+const required=['worker.mjs','meta-pixel.mjs','reviews.mjs','public/reviews.js','public/reviews.css','seed.mjs','wrangler.jsonc','package.json','package-lock.json','public/index.html','public/public-app.js','public/admin.html','public/admin-app.js','public/admin.css','migrations/0001_initial.sql'];
 const missing=required.filter(name=>!fs.existsSync(path.join(root,name)));
 if(missing.length){console.error('Missing files/folders. Upload the COMPLETE project, including public/ and migrations/:\n'+missing.join('\n'));process.exit(1)}
 const config=JSON.parse(fs.readFileSync(path.join(root,'wrangler.jsonc'),'utf8'));

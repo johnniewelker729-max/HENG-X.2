@@ -9,7 +9,7 @@
  startChat=async function(){if(busy)return;const name=$('customer-name').value.trim();if(name.length<2){$('name-error').textContent='กรุณาระบุชื่ออย่างน้อย 2 ตัวอักษร';return}busy=true;const button=document.querySelector('.name-row button');button.disabled=true;$('name-error').textContent='';try{const c=await api('/api/chat','POST',{name});enableChat(c);lastMessages='';await loadMessages();$('chat-input').focus()}catch{ $('name-error').textContent='เริ่มแชทไม่ได้ กรุณาลองใหม่อีกครั้ง'}finally{busy=false;button.disabled=false}};
  sendChat=async function(){if(!conversation||busy)return;const text=$('chat-input').value.trim();if(!text)return;busy=true;$('send-chat').disabled=true;status('กำลังส่งข้อความ…');try{await api('/api/chat/messages','POST',{text});$('chat-input').value='';await loadMessages();status('ส่งข้อความแล้ว • แอดมินจะตอบกลับในแชทนี้')}catch(e){status(e.status===429?'ส่งเร็วเกินไป กรุณารอสักครู่':'ส่งไม่สำเร็จ ข้อความยังอยู่ในช่องพิมพ์ กรุณาลองใหม่',true)}finally{busy=false;$('send-chat').disabled=false}};
  async function loadMessages(){if(!conversation||refreshing)return;refreshing=true;try{const {messages}=await api('/api/chat/messages');const signature=JSON.stringify(messages);if(signature!==lastMessages){lastMessages=signature;const container=$('chat-msgs'),nearBottom=container.scrollHeight-container.scrollTop-container.clientHeight<80;container.replaceChildren();if(!messages.length){const message=document.createElement('div');message.className='msg';message.textContent='ฝากข้อความไว้ได้เลยครับ HENG X.2จะตอบกลับในแชทนี้';container.append(message)}for(const m of messages){const div=document.createElement('div');div.className='msg'+(m.role==='visitor'?' mine':'');div.textContent=(m.role==='admin'?'HENG X.2: ':'')+m.text;container.append(div)}if(nearBottom)container.scrollTop=container.scrollHeight}}catch(e){if(e.status===401){conversation=null;chatName='';$('welcome-form').classList.remove('hidden');$('chat-input').disabled=true;$('send-chat').disabled=true;status('กรุณาระบุชื่อเพื่อเริ่มสนทนาใหม่',true)}else status('เชื่อมต่อขัดข้อง กำลังลองใหม่…',true)}finally{refreshing=false}}
- async function hydrate(){try{const data=await api('/api/profiles');if(data.profiles){profiles=data.profiles;if(!profiles[current])current=Object.keys(profiles)[0];render();const p=profiles[current];document.title=p.name+' | '+p.title;document.querySelector('.hero-caption p').textContent=p.title;document.querySelector('.hero-caption small').textContent=p.desc;document.querySelector('.hero-caption small').style.whiteSpace='pre-line'}}catch{const message=document.createElement('p');message.textContent='โหลดข้อมูลล่าสุดไม่ได้ กรุณารีเฟรชเพื่อลองอีกครั้ง';message.style.cssText='text-align:center;color:#f0d4a0;font-size:13px';document.querySelector('.dashboard').prepend(message)}}
+ async function hydrate(){try{const data=await api('/api/profiles');if(data.profiles){profiles=data.profiles;if(!profiles[current])current=Object.keys(profiles)[0];render();window.configureMetaPixel?.(profiles[current].metaPixel);const p=profiles[current];document.title=p.name+' | '+p.title;document.querySelector('.hero-caption p').textContent=p.title;document.querySelector('.hero-caption small').textContent=p.desc;document.querySelector('.hero-caption small').style.whiteSpace='pre-line'}}catch{const message=document.createElement('p');message.textContent='โหลดข้อมูลล่าสุดไม่ได้ กรุณารีเฟรชเพื่อลองอีกครั้ง';message.style.cssText='text-align:center;color:#f0d4a0;font-size:13px';document.querySelector('.dashboard').prepend(message)}}
  $('change-name').classList.add('hidden');document.querySelector('.chat-header small').textContent='ฝากข้อความถึงHENG X.2';
  hydrate().then(async()=>{try{const data=await api('/api/chat');if(data.conversation){enableChat(data.conversation);await loadMessages()}else status('ระบุชื่อเพื่อเริ่มสนทนา • ข้อความเก็บเป็นส่วนตัว')}catch{status('เชื่อมต่อแชทไม่ได้ กรุณาลองใหม่',true)}});
  setInterval(()=>{if(!document.hidden&&conversation&&$('contact').classList.contains('is-open'))loadMessages()},3000);
@@ -33,4 +33,19 @@
   dest.replaceChildren(iframe);
  };
  renderSideVideo();
+})();
+
+// Meta Pixel runs only after the public profile has loaded successfully.
+(()=>{
+ const sent=new Set();
+ window.configureMetaPixel=function(config){
+  if(location.pathname.startsWith('/admin')||config?.enabled!==true||!/^\d{5,25}$/.test(config.id)||sent.has(config.id))return;
+  sent.add(config.id);
+  if(!window.fbq){
+   const fbq=function(){fbq.callMethod?fbq.callMethod.apply(fbq,arguments):fbq.queue.push(arguments)};
+   window.fbq=fbq;if(!window._fbq)window._fbq=fbq;fbq.push=fbq;fbq.loaded=true;fbq.version='2.0';fbq.queue=[];
+   const script=document.createElement('script');script.async=true;script.src='https://connect.facebook.net/en_US/fbevents.js';document.head.append(script);
+  }
+  window.fbq('init',config.id);window.fbq('trackSingle',config.id,'PageView');
+ };
 })();
