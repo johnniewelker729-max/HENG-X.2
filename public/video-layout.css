@@ -8,12 +8,22 @@
 .line-floating,body>.line-floating{background:#06c755;opacity:1;border:2px solid #fff;box-shadow:0 4px 18px #0007;backdrop-filter:none;-webkit-backdrop-filter:none}
 .line-floating svg{opacity:1;filter:none;width:35px;height:35px}
 .line-floating:hover{background:#05ad49;box-shadow:0 6px 22px #0008}
+.mobile-menu-toggle{display:none}
 @media(max-width:767px){
+ html{scroll-padding-top:80px}
+ body header{top:8px;width:calc(100% - 24px);margin:8px auto 12px;border-radius:18px}
+ body header .shell.top{width:calc(100% - 24px);min-height:56px;height:56px;padding:0;display:flex;flex-wrap:nowrap;gap:8px}
+ header .brand{gap:8px;min-width:0;flex-shrink:1}header .brand strong{font-size:19px;line-height:1.2;white-space:nowrap}header .brand small{font-size:9px;margin-top:3px}header .brand-icon{width:30px;height:30px;flex:0 0 30px}header .brand-icon svg{width:19px;height:19px}
+ header .head-actions{display:none}
+ header .mobile-menu-toggle{display:grid;place-items:center;margin-left:auto;flex:0 0 42px;width:42px;height:42px;border:1px solid #e0cc9555;border-radius:12px;background:#ffffff0a;color:#f2dda1;font-size:21px;cursor:pointer}
+ header .nav{display:none;position:absolute;left:0;right:0;top:calc(100% + 8px);margin:0;padding:8px;background:#10241ef5;border:1px solid #ffffff30;border-radius:16px;box-shadow:0 12px 28px #0006;backdrop-filter:blur(20px);flex-direction:column;align-items:stretch;gap:3px}
+ header.mobile-menu-open .nav{display:flex}header .nav a{font-size:14px;min-height:44px;padding:10px 14px}
+ .dashboard .hero{height:clamp(190px,28svh,260px);min-height:0;aspect-ratio:auto}
  .promo{display:flex;flex-direction:column;align-items:stretch;gap:16px;padding:22px 0}
- .promo-copy{flex:none;min-width:0}.promo-copy h2{font-size:clamp(24px,6.3vw,30px);line-height:1.45;margin:0 0 12px;text-wrap:balance}.promo-copy h2 br{display:none}
+ .promo-copy{flex:none;min-width:0}.promo-copy h2{font-size:clamp(21px,5.6vw,26px);line-height:1.4;margin:0 0 8px;text-wrap:balance}.promo-copy h2 br{display:none}
  .promo-copy p{max-width:36em;margin:0 0 8px;line-height:1.8}.promo-contact{margin:0;min-height:44px}
  .promo .video-row{flex:none;width:100%;max-width:none;aspect-ratio:16/9;border-radius:14px;margin:0}
- .dashboard>.callball-reviews{padding:20px 8px;margin-top:16px}
+ .callball-reviews{padding:16px 8px;margin-top:12px}.callball-reviews .cb-heading{margin-bottom:10px}.callball-reviews .cb-status{margin:8px 0;font-size:13px;line-height:1.6}.callball-reviews:has(.cb-viewport[hidden]) .cb-controls{display:none}
  body>.chat-fab,body>.line-floating{position:relative;inset:auto;display:inline-flex;vertical-align:middle;align-items:center;justify-content:center;width:48px;height:48px;min-height:48px;padding:0;margin-top:8px;margin-bottom:max(20px,env(safe-area-inset-bottom));transform:none}
  body>.chat-fab{margin-left:max(16px,calc((100vw - 1200px)/2));margin-right:12px;background:#173b30}.chat-fab-label{display:none}
  body>.line-floating{margin-left:0;background:#06c755}

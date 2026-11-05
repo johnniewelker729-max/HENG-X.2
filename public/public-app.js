@@ -20,6 +20,13 @@
  const css=document.createElement('link');css.rel='stylesheet';css.href='/video-layout.css';document.head.append(css);
  const reviewSection=document.getElementById('reviews'),promo=document.querySelector('.promo');
  if(reviewSection&&promo)promo.before(reviewSection);
+ const header=document.querySelector('header'),nav=header.querySelector('.nav');
+ const menu=document.createElement('button');menu.type='button';menu.className='mobile-menu-toggle';menu.textContent='☰';menu.setAttribute('aria-label','เปิดเมนู');menu.setAttribute('aria-expanded','false');nav.id='main-navigation';menu.setAttribute('aria-controls',nav.id);header.querySelector('.top').append(menu);
+ function closeMenu(){header.classList.remove('mobile-menu-open');menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','เปิดเมนู')}
+ menu.onclick=()=>{const open=header.classList.toggle('mobile-menu-open');menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?'ปิดเมนู':'เปิดเมนู')};
+ nav.addEventListener('click',e=>{if(e.target.closest('a'))closeMenu()});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&header.classList.contains('mobile-menu-open')){closeMenu();menu.focus()}});
+ document.addEventListener('click',e=>{if(!header.contains(e.target))closeMenu()});
  const previous=renderSideVideo;
  renderSideVideo=function(){
   const p=profiles[current],id=ytId((p.youtube||'').trim());
