@@ -1,0 +1,30 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "naypun",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-11-04",
+  "workers_dev": true,
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": true,
+    "html_handling": "none"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "naypan-db",
+      "database_id": "51a92995-4113-4209-bdcb-36a3115d971d",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "triggers": {
+    "crons": [
+      "0 20 * * *"
+    ]
+  },
+  "vars": {
+    "REVIEW_API_ORIGIN": "https://callballreview.com",
+    "REVIEW_TARGET": ""
+  }
+}
